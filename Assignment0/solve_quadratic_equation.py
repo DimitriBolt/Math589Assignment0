@@ -1,15 +1,17 @@
-#----------------------------------------------------------------
+# ----------------------------------------------------------------
 # File:     solve_quadratic_equation.py
-#----------------------------------------------------------------
+# ----------------------------------------------------------------
 #
-# Author:   Marek Rychlik (rychlik@arizona.edu)
+# Author:   Dimitri Bolt (DimitriBolt@arizona.edu)
 # Date:     Tue Jul 30 09:37:29 2024
 # Copying:  (C) Marek Rychlik, 2020. All rights reserved.
 # 
-#----------------------------------------------------------------
+# ----------------------------------------------------------------
 # A basic quadratic equation solver. High-school method.
 
 import math
+
+
 def solve_quadratic_equation(a, b, c):
     """
     Solve the quadratic equation a*x^2 + b*x + c = 0 using the standard quadratic formula.
@@ -30,7 +32,7 @@ def solve_quadratic_equation(a, b, c):
     Raises:
     """
     # Calculate the discriminant
-    discriminant = b**2 - 4*a*c
+    discriminant = b ** 2 - 4 * a * c
 
     # Calculate the discriminant's square root
     sqrt_discriminant = math.sqrt(discriminant)
@@ -40,6 +42,13 @@ def solve_quadratic_equation(a, b, c):
     root2 = (-b - sqrt_discriminant) / (2 * a)
 
     return (root1, root2)
+
+
+class InvalidEquationError(Exception):
+    def __init__(self, message):
+        self.message = message
+
+
 # Example usage:
 # NOTE: Also, as simple testing framework.
 if __name__ == "__main__":
