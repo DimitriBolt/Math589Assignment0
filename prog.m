@@ -7,7 +7,7 @@ function x = prog(a, b, c)
     a = double(a);
     b = double(b);
     c = double(c);
-    D = vpa(b^2 - 4*a*c);
+    D = (b^2 - 4*a*c);
     
     x(1) = double(-b + sqrt(D)) / (2*a);
     x(1) = double(x(1));
