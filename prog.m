@@ -5,6 +5,6 @@ function x = prog(a, b, c)
     % Calculate the discriminant
     D = b^2 - 4*a*c;
     
-    x(1) = (-b + sqrt(D)) / (2*a);
-    x(2) = (-b - sqrt(D)) / (2*a);
+    x(1) = vpa(-b + sqrt(D)) / (2*a);
+    x(2) = vpa(-b - sqrt(D)) / (2*a);
 end
