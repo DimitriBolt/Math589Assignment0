@@ -3,11 +3,14 @@ function x = prog(a, b, c)
     % Returns the roots of the equation
     
     % Calculate the discriminant
+    format long
     a = double(a);
     b = double(b);
     c = double(c);
     D = double(b^2 - 4*a*c);
     
     x(1) = double(-b + sqrt(D)) / (2*a);
+    x1(1) = double(x(1));
     x(2) = double(-b - sqrt(D)) / (2*a);
+    x(2) = double(x(2));
 end
