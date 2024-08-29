@@ -10,6 +10,7 @@
 # A basic quadratic equation solver. High-school method.
 
 import math
+from decimal import Decimal
 
 
 def solve_quadratic_equation(a, b, c):
@@ -31,17 +32,27 @@ def solve_quadratic_equation(a, b, c):
 
     Raises:
     """
+    a = Decimal(a)
+    b = Decimal(b)
+    c = Decimal(c)
+
+    # Check if the equation is actually quadratic
+    if a == 0:
+        raise InvalidEquationError("The equation is not quadratic (a = 0)") # Not a quadratic equation  (a = 0)
+
     # Calculate the discriminant
-    discriminant = b ** 2 - 4 * a * c
+    discriminant: Decimal = b ** 2 - 4 * a * c
+    if discriminant < 0:
+        raise InvalidEquationError("The equation has no real roots (discriminant < 0)")   # No real roots (discriminant < 0)  # No real roots (discriminant < 0)
 
     # Calculate the discriminant's square root
-    sqrt_discriminant = math.sqrt(discriminant)
+    sqrt_discriminant: Decimal = Decimal.sqrt(discriminant)
 
     # Compute both roots using the standard quadratic formula
-    root1 = (-b + sqrt_discriminant) / (2 * a)
-    root2 = (-b - sqrt_discriminant) / (2 * a)
+    root1: float = float((-b + sqrt_discriminant) / (2 * a))
+    root2: float = float((-b - sqrt_discriminant) / (2 * a)) if discriminant != 0 else None
 
-    return (root1, root2)
+    return root1, root2
 
 
 class InvalidEquationError(Exception):
@@ -53,7 +64,7 @@ class InvalidEquationError(Exception):
 # NOTE: Also, as simple testing framework.
 if __name__ == "__main__":
     try:
-        roots = solve_quadratic_equation(3, -1000000.001, 1)  # Using the earlier example coefficients
+        roots = solve_quadratic_equation(1, -10.001, 1)  # Using the earlier example coefficients
         print("Roots:", roots)
     except ValueError as e:
         print("Error:", e)
