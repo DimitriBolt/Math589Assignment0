@@ -3,8 +3,8 @@ function x = prog(a, b, c)
     % Returns the roots of the equation
     
     % Calculate the discriminant
-    D = b^2 - 4*a*c;
+    D = double(b^2 - 4*a*c);
     
-    x(1) = vpa(-b + sqrt(D)) / (2*a);
-    x(2) = vpa(-b - sqrt(D)) / (2*a);
+    x(1) = double(-b + sqrt(D)) / (2*a);
+    x(2) = double(-b - sqrt(D)) / (2*a);
 end
