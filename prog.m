@@ -10,7 +10,7 @@ function x = prog(a, b, c)
     D = double(b^2 - 4*a*c);
     
     x(1) = double(-b + sqrt(D)) / (2*a);
-    x1(1) = double(x(1));
+    x(1) = double(x(1));
     x(2) = double(-b - sqrt(D)) / (2*a);
     x(2) = double(x(2));
 end
