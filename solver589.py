@@ -82,7 +82,7 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
             print('Not Convergent!')
             break
 
-        condition = abs(function(x2)) >= tolerance/1000
+        condition = abs(function(x2)) >= tolerance/10
     return x1
 
 
