@@ -87,7 +87,7 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
 
 
 # Implementing False Position Method
-def regula_falsi(function, x0, x1, e):
+def regula_falsi(function, x0, x1, tolerance):
 
     try:
         function(x0)
@@ -105,7 +105,7 @@ def regula_falsi(function, x0, x1, e):
             x0 = x2
 
         step = step + 1
-        condition = abs(function(x2)) > e
+        condition = abs(function(x2)) > tolerance
 
     return x2
 
@@ -138,9 +138,9 @@ if __name__ == "__main__":
     tol = 1e-6
     print(f"Secant: {secant_method(f, x0g, x2g, tol, max_iteration=90)}")
 
-    x0 = 0.58
-    x1 = 0.8
+    a = 0
+    b = 1.57
     tol = 1e-6
-    print(f"Regula Falsi: {regula_falsi(f, x0, x1, tol)}")
+    print(f"Regula Falsi: {regula_falsi(f, a, b, tol)}")
 
 # This code is contributed by Dimitri Bolt.
