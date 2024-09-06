@@ -106,6 +106,16 @@ def regula_falsi(function, x0, x1, e):
     return x2
 
 
+class ToleranceNotMet(Exception):
+    def __init__(self, message):
+        self.message = message
+
+
+class InvalidBracket(Exception):
+    def __init__(self, message):
+        self.message = message
+
+
 # Driver code
 if __name__ == "__main__":
     # Initial values assumed
