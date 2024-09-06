@@ -9,7 +9,7 @@ func = lambda x: sin(x) - (1 - x)
 def bisection_method(function, a: float, b: float, tolerance: float):
 
     try:
-        function(a)
+        function(a)*function(b) > 0
     except TypeError:
         raise InvalidBracket("expects a bracket, but receives an invalid bracket")
 
