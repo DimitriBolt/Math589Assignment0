@@ -92,6 +92,12 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
 
 # Implementing False Position Method
 def regula_falsi(function, x0, x1, e):
+
+    try:
+        function(a)
+    except TypeError:
+        raise InvalidBracket("expects a bracket, but receives an invalid bracket")
+
     step = 1
     condition = True
     while condition:
