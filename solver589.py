@@ -8,9 +8,7 @@ func = lambda x: sin(x) - (1 - x)
 # Prints root of func(x) with error of EPSILON
 def bisection_method(function, a: float, b: float, tolerance: float):
 
-    try:
-        function(a)*function(b) > 0
-    except TypeError:
+    if function(a)*function(b) >= 0 :
         raise InvalidBracket("expects a bracket, but receives an invalid bracket")
 
     c = a
