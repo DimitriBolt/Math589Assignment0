@@ -65,7 +65,7 @@ def newton_raphson(f_df, x, tolerance: float, max_iteration):
 
 # Python3 Program to find root of an equations using secant method
 # function takes value of x and returns f(x)
-f = lambda x: sin(x) - (1 - x)
+
 
 
 def secant_method(function, x0, x1, tolerance, max_iteration):
@@ -88,30 +88,20 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
 
 
 # Implementing False Position Method
-def regula_falsi(function, a, b, tolerance):
-
-    if function(a)*function(b) >= 0 :
-        raise InvalidBracket("expects a bracket, but receives an invalid bracket")
-
-    step = 1
-    condition = True
-    while condition:
-        c = b - (b - a) * function(b) / (function(b) - function(a))
-
-        if function(c) == 0:
-            break
-
-        if function(a) * function(c) < 0:
-            b = c
+def regula_falsi(f, a, b, tol):
+    fa, fb = f(a), f(b)
+    if fa * fb >= 0:
+        raise InvalidBracket("Invalid bracket.")
+    while (b - a) / 2 > tol:
+        c = b - (fb * ((b - a) / (fb - fa)))
+        fc = f(c)
+        if fc < tol:
+            return c #c is the root
+        elif fa * fc < 0:
+            b, fb = c, fc
         else:
-            a = c
-
-        step = step + 1
-        condition = abs(function(c)) > tolerance
-        # condition = abs(b-a)/2 > tolerance
-
-
-    return (a +b)/2
+            a, fa = c, fc
+    return (a + b) / 2
 
 
 class ToleranceNotMet(Exception):
@@ -135,6 +125,8 @@ if __name__ == "__main__":
     # Driver program to test above newton_raphson(x)
     x0 = 0.58  # Initial values assumed
     print(f"Newton-Raphson: {newton_raphson(df, x0, tolerance=1e-6, max_iteration=100)}")
+
+    f = lambda x: sin(x) - (1 - x)
 
     # initializing the values
     x0g = 0.58
