@@ -93,14 +93,14 @@ def regula_falsi(f, a, b, tol):
     if fa * fb >= 0:
         raise InvalidBracket("Invalid bracket.")
     while (b - a) / 2 > tol:
-        c = b - (fb * ((b - a) / (fb - fa)))
-        fc = f(c)
-        if fc < tol:
+        c = b - (f(b) * ((b - a) / (f(b) - f(a))))
+        # fc = f(c)
+        if f(c) == 0:
             return c #c is the root
-        elif fa * fc < 0:
-            b, fb = c, fc
+        elif f(a) * f(c) < 0:
+            b = c
         else:
-            a, fa = c, fc
+            a = c
     return (a + b) / 2
 
 
