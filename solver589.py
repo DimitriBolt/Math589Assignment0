@@ -72,7 +72,7 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
     step = 1
     condition = True
     while condition:
-        x2 = x0 - (x1 - x0) * function(x0) / (function(x1) - function(x0))
+        x2 = x1 - (x1 - x0) * function(x1) / (function(x1) - function(x0))
         x0 = x1
         x1 = x2
         step = step + 1
@@ -81,30 +81,37 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
             print('Not Convergent!')
             break
 
-        condition = abs(function(x2)) >= tolerance
+        # condition = abs(function(x2)) >= tolerance
+        condition = abs(x1-x0) > tolerance
+
     return x1
 
 
 # Implementing False Position Method
-def regula_falsi(function, x0, x1, tolerance):
+def regula_falsi(function, a, b, tolerance):
 
-    if function(x0)*function(x1) >= 0 :
+    if function(a)*function(b) >= 0 :
         raise InvalidBracket("expects a bracket, but receives an invalid bracket")
 
     step = 1
     condition = True
     while condition:
-        x2 = x0 - (x1 - x0) * function(x0) / (function(x1) - function(x0))
+        c = b - (b - a) * function(b) / (function(b) - function(a))
 
-        if function(x0) * function(x2) < 0:
-            x1 = x2
+        if function(c) == 0:
+            break
+
+        if function(a) * function(c) < 0:
+            b = c
         else:
-            x0 = x2
+            a = c
 
         step = step + 1
-        condition = abs(function(x2)) > tolerance
+        condition = abs(function(c)) > tolerance
+        # condition = abs(b-a)/2 > tolerance
 
-    return x2
+
+    return (a +b)/2
 
 
 class ToleranceNotMet(Exception):
