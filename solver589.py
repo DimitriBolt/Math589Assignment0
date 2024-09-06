@@ -17,12 +17,13 @@ def bisection_method(function, a: float, b: float, tolerance: float):
         n: int = n + 1
         # Find middle point
         c = (a + b) / 2
+        fc = function(c)
         # Check if middle point is root
-        if function(c) == 0.0:
+        if fc == 0.0:
             break
 
         # Decide the side to repeat the steps
-        if function(c) * function(a) < 0:
+        if fc * function(a) < 0:
             b = c
         else:
             a = c
