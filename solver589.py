@@ -7,16 +7,18 @@ func = lambda x: sin(x) - (1 - x)
 
 # Prints root of func(x) with error of EPSILON
 def bisection_method(function, a: float, b: float, tolerance: float):
-    if function(a) * function(b) >= 0:
-        print("You have not assumed right a and b\n")
-        return
+
+    try:
+        function(a)
+    except TypeError:
+        raise InvalidBracket("expects a bracket, but receives an invalid bracket")
 
     c = a
+    n: int = 0
     while (b - a) >= tolerance:
-
+        n: int = n + 1
         # Find middle point
         c = (a + b) / 2
-
         # Check if middle point is root
         if function(c) == 0.0:
             break
