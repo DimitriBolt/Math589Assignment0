@@ -15,7 +15,7 @@ def bisection_method(function, a: float, b: float, tolerance: float):
 
     c = a
     n: int = 0
-    while (b - a) > tolerance:
+    while (b - a) >= tolerance:
         n: int = n + 1
         # Find middle point
         c = (a + b) / 2
@@ -73,10 +73,6 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
     step = 1
     condition = True
     while condition:
-        # if function(x0) == function(x1):
-        #     print('Divide by zero error!')
-        #     break
-
         x2 = x0 - (x1 - x0) * function(x0) / (function(x1) - function(x0))
         x0 = x1
         x1 = x2
@@ -86,12 +82,12 @@ def secant_method(function, x0, x1, tolerance, max_iteration):
             print('Not Convergent!')
             break
 
-        condition = abs(function(x2)) >= tolerance/8
-    return x2
+        condition = abs(function(x2)) >= tolerance/1000
+    return x1
 
 
 # Implementing False Position Method
-def regula_falsi(function, x0, x1, tolerance):
+def regula_falsi(function, x0, x1, e):
 
     try:
         function(x0)
@@ -109,7 +105,7 @@ def regula_falsi(function, x0, x1, tolerance):
             x0 = x2
 
         step = step + 1
-        condition = abs(function(x2)) > tolerance
+        condition = abs(function(x2)) > e
 
     return x2
 
