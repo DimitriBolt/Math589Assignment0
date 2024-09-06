@@ -15,7 +15,7 @@ def bisection_method(function, a: float, b: float, tolerance: float):
 
     c = a
     n: int = 0
-    while (b - a) >= tolerance:
+    while (b - a) > tolerance:
         n: int = n + 1
         # Find middle point
         c = (a + b) / 2
