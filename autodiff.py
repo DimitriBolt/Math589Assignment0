@@ -14,8 +14,8 @@ from multimethod import multimethod
 
 class Variable:
     def __init__(self, value, derivative=1.0):
-        self.value = value
-        self.derivative = derivative
+        self.value: float = value
+        self.derivative: float = derivative
 
     def __add__(self, other):
         if isinstance(other, Variable):
@@ -71,6 +71,10 @@ class Variable:
 
     def to_pair(self):
         return self.value, self.derivative
+
+    def abs(self):
+        """Absolute value operation for Variable."""
+        return Variable(np.abs(self.value), np.sign(self.value) * self.derivative)
 
 
 @multimethod
@@ -174,3 +178,6 @@ if __name__ == '__main__':
 
     val, grad = g(1, 2)
     print(f"Value: {val}, Gradient: {grad}")
+
+    # We need to add abs function for the Variable class
+
