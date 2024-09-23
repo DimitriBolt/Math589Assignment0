@@ -76,6 +76,10 @@ class Variable:
         """Absolute value operation for Variable."""
         return Variable(np.abs(self.value), np.sign(self.value) * self.derivative)
 
+    def max(self, other):
+        """Maximum value operation for Variable."""
+        return Variable(1/2*(self + other) + abs(self - other))
+
 
 @multimethod
 def sqrt(x: float | int):
@@ -85,6 +89,16 @@ def sqrt(x: float | int):
 @multimethod
 def sqrt(x: Variable):
     return x.sqrt()
+
+
+@multimethod
+def abs(x: Variable):
+    return x.abs()
+
+
+@multimethod
+def max(x: Variable):
+    return x.abs()
 
 
 class Constant(Variable):
@@ -127,14 +141,6 @@ def gradient(f):
         return val, tuple([p[1] for p in partials])
 
     return wrapper
-
-
-def abs():
-    return None
-
-
-def max():
-    return None
 
 
 if __name__ == '__main__':
@@ -180,4 +186,3 @@ if __name__ == '__main__':
     print(f"Value: {val}, Gradient: {grad}")
 
     # We need to add abs function for the Variable class
-
