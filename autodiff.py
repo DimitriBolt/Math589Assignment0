@@ -11,6 +11,7 @@
 import numpy as np
 from multimethod import multimethod
 
+
 class Variable:
     def __init__(self, value, derivative=1.0):
         self.value = value
@@ -33,7 +34,6 @@ class Variable:
 
     def __rsub__(self, other):
         return Variable(other - self.value, -self.derivative)
-
 
     def __mul__(self, other):
         if isinstance(other, Variable):
@@ -72,17 +72,21 @@ class Variable:
     def to_pair(self):
         return self.value, self.derivative
 
-@multimethod
-def sqrt(x : float|int):
-    return np.sqrt(x)
 
 @multimethod
-def sqrt(x : Variable):
+def sqrt(x: float | int):
+    return np.sqrt(x)
+
+
+@multimethod
+def sqrt(x: Variable):
     return x.sqrt()
+
 
 class Constant(Variable):
     def __init__(self, value):
         super().__init__(value, 0.0)
+
 
 def autodiff(f):
     def g(x):
@@ -91,6 +95,7 @@ def autodiff(f):
         return yy.to_pair()
 
     return g
+
 
 def gateaux(f):
     def wrapper(*args, **kwargs):
@@ -107,8 +112,10 @@ def standard_basis(n):
     for i in range(n):
         yield tuple(1 if j == i else 0 for j in range(n))
 
+
 def gradient(f):
     g = gateaux(f)
+
     def wrapper(*args, **kwargs):
         n = len(args)
         partials = [g(*args, **kwargs, direction=v) for v in standard_basis(n)]
@@ -118,37 +125,52 @@ def gradient(f):
     return wrapper
 
 
+def abs():
+    return None
+
+
+def max():
+    return None
+
+
 if __name__ == '__main__':
     # Example usage:
     x = Variable(2.0)
-    y = x**2 + 3*x + 2
+    y = x ** 2 + 3 * x + 2
 
     print(f"Value of expression: {y.value}")
     print(f"Derivative of expression: {y.derivative}")
 
+
     # Function of 1 variable that "knows how to differentiate itself"
     @autodiff
     def f(x):
-        y = x**2 + 3*x + 2
+        y = x ** 2 + 3 * x + 2
         return y
+
 
     y, dy = f(2.0)
     print(f"Value of function: {y}")
     print(f"Derivative of function: {dy}")
 
+
     # Function of 2 variables that "knows how to find its directional derivative"
     @gateaux
     def g(x, y):
-        z = x**2 + 3*x*y
+        z = x ** 2 + 3 * x * y
         return z
-    
+
+
     z, dz = g(1, 2, direction=(1, 2))
     print(f"Value: {z}, Gateaux derivative in direction {(1, 2)}: {dz}")
+
 
     # Function of 2 variables that "knows how to find its gradient"
     @gradient
     def g(x, y):
-        z = x**2 + 3*x*y
+        z = x ** 2 + 3 * x * y
         return z
+
+
     val, grad = g(1, 2)
-    print(f"Value: {val}, Gradient: {grad}")   
+    print(f"Value: {val}, Gradient: {grad}")
