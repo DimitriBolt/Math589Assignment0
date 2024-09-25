@@ -79,7 +79,7 @@ class Variable:
     def max(self, other):
         pass
         """Maximum value operation for Variable."""
-        var: Variable = 1/2 * ((self + other) + abs(self - other))
+        var: Variable = 1 / 2 * ((self + other) + abs(self - other))
         return var
 
 
@@ -104,7 +104,9 @@ def max(*args: Variable):
     if len(args) == 1:
         return args[0]
     else:
-        return args[0].max(max(args[1:]))
+        var = max(*args[1:])  # Recursive call
+        max_ = args[0].max(var)  # analog ordinary max-function between 2 Variables
+    return max_
 
 
 class Constant(Variable):
@@ -127,6 +129,7 @@ def gateaux(f: callable) -> callable:
         del kwargs['direction']
         vargs = [Variable(arg, incr) for arg, incr in zip(args, direction)]
         val = f(*vargs, **kwargs)
+        pass
         return val.to_pair()
 
     return wrapper
