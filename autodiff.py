@@ -104,6 +104,7 @@ def max(*args: Variable):
     arg_list: list = list(args)
     if isinstance(arg_list[0], float):
         arg_list[0] = Variable(args[0], derivative=0.0)  # If the first argument is a float, convert it to a Variable
+
     pass
     if len(arg_list) == 1:
         return arg_list[0]
