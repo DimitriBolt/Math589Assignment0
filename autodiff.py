@@ -101,11 +101,15 @@ def abs(x: Variable):
 @multimethod
 def max(*args: Variable):
     pass
-    if len(args) == 1:
-        return args[0]
+    arg_list: list = list(args)
+    if isinstance(arg_list[0], float):
+        arg_list[0] = Variable(args[0], derivative=0.0)  # If the first argument is a float, convert it to a Variable
+    pass
+    if len(arg_list) == 1:
+        return arg_list[0]
     else:
-        var = max(*args[1:])  # Recursive call
-        max_ = args[0].max(var)  # analog ordinary max-function between 2 Variables
+        var = max(*arg_list[1:])  # Recursive call
+        max_ = arg_list[0].max(var)  # analog ordinary max-function between 2 Variables
     return max_
 
 
