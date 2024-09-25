@@ -77,8 +77,10 @@ class Variable:
         return Variable(np.abs(self.value), np.sign(self.value) * self.derivative)
 
     def max(self, other):
+        pass
         """Maximum value operation for Variable."""
-        return Variable(1/2*(self + other) + abs(self - other))
+        var: Variable = 1/2 * ((self + other) + abs(self - other))
+        return var
 
 
 @multimethod
@@ -97,8 +99,12 @@ def abs(x: Variable):
 
 
 @multimethod
-def max(x: Variable):
-    return x.abs()
+def max(*args: Variable):
+    pass
+    if len(args) == 1:
+        return args[0]
+    else:
+        return args[0].max(max(args[1:]))
 
 
 class Constant(Variable):
@@ -106,8 +112,8 @@ class Constant(Variable):
         super().__init__(value, 0.0)
 
 
-def autodiff(f):
-    def g(x):
+def autodiff(f: callable) -> callable:
+    def g(x: float) -> tuple[float]:
         xx = Variable(x)
         yy = f(xx)
         return yy.to_pair()
@@ -115,7 +121,7 @@ def autodiff(f):
     return g
 
 
-def gateaux(f):
+def gateaux(f: callable) -> callable:
     def wrapper(*args, **kwargs):
         direction = kwargs.get('direction')
         del kwargs['direction']
@@ -128,11 +134,12 @@ def gateaux(f):
 
 def standard_basis(n):
     for i in range(n):
+        var = tuple(1 if j == i else 0 for j in range(n))
         yield tuple(1 if j == i else 0 for j in range(n))
 
 
-def gradient(f):
-    g = gateaux(f)
+def gradient(f: callable) -> callable:
+    g: callable = gateaux(f)
 
     def wrapper(*args, **kwargs):
         n = len(args)
