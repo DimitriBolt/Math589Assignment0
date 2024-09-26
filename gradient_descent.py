@@ -90,7 +90,8 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
                 learning_rate = learning_rate / (1 + 0.0001)
 
     else:
-        raise Exception("Maximum iterations exceeded")
+        #raise Exception("Maximum iterations exceeded")
+        print("Maximum iterations exceeded")
 
     # Return the final x and y
     if is_scalar:
