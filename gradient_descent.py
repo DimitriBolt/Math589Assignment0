@@ -35,7 +35,7 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
     else:
         raise TypeError("x0 must be a float, int, or a list/tuple of length 2")
 
-    max_iter = 200_000  # To avoid infinite loops
+    max_iter = 100_000  # To avoid infinite loops
     iter_count = 0
 
     # Initialize y and grad
@@ -83,7 +83,7 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
 
             # Optionally decrease the learning rate
             # learning_rate = learning_rate / (1 + 0.005 * iter_count)
-            learning_rate = learning_rate / (1 + 0.00003)
+            learning_rate = learning_rate / (1 + 0.00017)
 
     else:
         raise Exception("Maximum iterations exceeded")
