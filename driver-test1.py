@@ -43,7 +43,7 @@ print(f'Global minimum: {x}, Function value: {y}')
 y_ref = 5.0625
 
 
-# assert(y <= y_ref + tol)
+assert(y <= y_ref + tol)
 
 
 @gradient
