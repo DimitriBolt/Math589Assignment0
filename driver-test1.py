@@ -20,6 +20,17 @@ def f(x: int | Variable):
 
 y, grad = f(1)
 
+
+# Check if y and grad are good
+@gradient
+def f_check(x: int | Variable):
+    return max(5 * x ** 2 + 3 * x, 2 * x ** 2 - 5 * x + 7, (x - 1) ** 2 + 5)
+
+
+# print(f_check(0.7219315782355156))
+# print((0.7219315782355156 - 1) ** 2 + 5)
+# print(2*0.7219315782355156-2)
+
 x0 = 0
 learning_rate = 0.1
 tol = 1e-10

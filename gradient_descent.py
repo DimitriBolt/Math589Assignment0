@@ -35,7 +35,7 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
     else:
         raise TypeError("x0 must be a float, int, or a list/tuple of length 2")
 
-    max_iter = 1000000  # To avoid infinite loops
+    max_iter = 10000000  # To avoid infinite loops
     iter_count = 0
 
     # Initialize y and grad
@@ -67,10 +67,11 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
         y_diff = abs(y_new - y)
 
         # Compute gradient norm
-        grad_norm = math.sqrt(sum(g**2 for g in grad_new))
+        grad_norm = math.sqrt(sum(g ** 2 for g in grad_new))
 
         # Check convergence
         if y_diff < tol or grad_norm < tol:
+        # if abs(x_new - x) < tol or grad_norm < tol:
             x = x_new
             y = y_new
             break  # Converged
@@ -81,7 +82,8 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
             iter_count += 1
 
             # Optionally decrease the learning rate
-            learning_rate = learning_rate / (1 + 0.01 * iter_count)
+            # learning_rate = learning_rate / (1 + 0.005 * iter_count)
+            learning_rate = learning_rate / (1 + 0.00002)
 
     else:
         raise Exception("Maximum iterations exceeded")
