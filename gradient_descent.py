@@ -87,7 +87,7 @@ def find_global_minimum(f, x0, learning_rate=0.1, tol=1e-6):
             if abs(grad[0]) > 10:
                 learning_rate = learning_rate / 5
             else:
-                learning_rate = learning_rate / (1 + 0.000000001)
+                learning_rate = learning_rate / (1 + 0.001)
 
     else:
         raise Exception("Maximum iterations exceeded")
